@@ -1,30 +1,28 @@
 #ifndef DESIGNPATTERN_OBSERVERPATTERN_OBSERVERPATTERN_STORESUBJECT_H
 #define DESIGNPATTERN_OBSERVERPATTERN_OBSERVERPATTERN_STORESUBJECT_H
 
-#include "DataType.h"
-#include "ICustomerObserver.h"
-#include <unorderd_map>
-#include <shared_ptr>
+#include <forward_list>
+#include "IStoreSubject.h"
+#include "IStoreObserver.h"
 
 namespace ObserverPattern
 {
-using goodsMap = std::unorderd_map<goods, std::shared_ptr<ICustomerObserver>>; // goods -> customer>
-
-class StoreSubject
+class StoreSubject : public IStoreSubject
 {
 public:
-	explicit StoreSubject();
-	~StoreSubject();
+	StoreSubject() = default;
+	~StoreSubject() override = default;
 
-	void increaseGoods(goods goodsName, numbers increaseNumber);
-	void addCustomer(std::shared_ptr<ICustomerObserver> customerName, goods goodsName);
+	void attach(IStoreObserver& observer) override;
+
+	void increaseGoods(const std::string& name);
 
 private:
-	void notifyCustomer(goods goodsName);
+	void notifyCustomer(const std::string& name);
 
-	goodsMap goodsMap_;
-}
-
+private:
+	std::forward_list<IStoreObserver*> observers_;
+};
 }// end namespace
 
-#endif DESIGNPATTERN_OBSERVERPATTERN_OBSERVERPATTERN_STORESUBJECT_H
+#endif
