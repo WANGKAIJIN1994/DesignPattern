@@ -11,7 +11,7 @@ public:
     explicit Customer(const std::string& name);
     ~Customer() override = default;
 
-    void update(const std::string& name) override;
+    void receive(const std::string& name) override;
 
 private:
     const std::string name_;

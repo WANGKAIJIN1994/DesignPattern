@@ -11,7 +11,7 @@ public:
 	IStoreObserver() = default;
 	virtual ~IStoreObserver() = default;
 
-	virtual void update(const std::string& name) = 0;
+	virtual void receive(const std::string& name) = 0;
 };
 }// end namespace
 
